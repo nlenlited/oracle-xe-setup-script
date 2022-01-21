@@ -1,19 +1,9 @@
-#!/bin/sh
-
-if [ $# -lt 2 ]
-then
-        echo "Please specify username and password"
-        exit 1
-fi
-
-source /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh
-
-sqlplus -s /nolog <<EOF
--- Intershop Database User
-connect sys/intershop as sysdba
- 
-DEFINE _us         = $1
-DEFINE _pw         = $2
+--
+-- Script to create an intershop user for intershop to use 
+-- use any username or password you choose
+--
+DEFINE _us         = intershop
+DEFINE _pw         = intershop
 DEFINE _ts_temp    = IS_TEMP
 DEFINE _ts_user    = IS_USERS
  
@@ -42,6 +32,3 @@ GRANT CREATE SNAPSHOT               TO &_us;
 GRANT ANALYZE ANY                   TO &_us;
 GRANT EXECUTE ON CTX_DDL            TO &_us;
 GRANT EXECUTE ON DBMS_STREAMS_ADM   TO &_us;
-
-quit
-EOF
